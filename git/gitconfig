@@ -1,0 +1,58 @@
+[user]
+	name = lepustse
+	email = lepustse@gmail.com
+[core]
+    editor = vim
+	quotepath = false
+	excludesfile = /home/lepus/.gitignore
+[alias]
+	df = diff
+	br = branch
+	st = status
+	ci = commit
+	co = checkout
+	pl = pull
+	pt = pust
+
+	# %an: 作者名字，是指实际作出修改的人
+	# %cn: 提交者名字，是指最后将此工作成果提交到仓库的人
+	#lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	lg = log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+
+	# 看时间的log
+	# %ai: 作者修订日期
+	# %ci: 提交日期
+	dlg = log --graph --all --date-order --pretty=format:\"%h %C(blue)%ai%Creset %Cgreen(%ci)%Creset %d %s\"
+
+	# 单个log，仅在提交信息后显示已修改的文件清单（单个）
+	slg = log --pretty=fuller --name-only -1
+
+	# 全部log，仅在提交信息后显示已修改的文件清单
+	alg = log --pretty=fuller --name-only
+
+	# 按照补丁格式显示每个更新之间的差异
+	plg = log --pretty=fuller -p -1
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+#[https]
+#	proxy = socks5://127.0.0.1:1086
+#[http]
+#	proxy = socks5://127.0.0.1:1086
+[diff]
+  tool = bcomp
+[difftool]
+  prompt = false
+[difftool "bcomp"]
+  trustExitCode = true
+  cmd = "/usr/local/bin/bcomp" \"$LOCAL\" \"$REMOTE\"
+[merge]
+  tool = bcomp
+[mergetool]
+  prompt = false
+[mergetool "bcomp"]
+  trustExitCode = true
+  cmd = "/usr/local/bin/bcomp" \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+

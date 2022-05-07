@@ -1,0 +1,390 @@
+"=========================================================================
+" File		 :  .vimrc
+" Change Logs:
+" Date			Author		Notes
+" 2019-04-10	lepus.tse	the first version
+"=========================================================================
+
+"-------------------------------------------------------------------------
+" This line should not be removed as it ensures that various options are
+" properly set to work with the Vim-related packages available in Debian.
+"-------------------------------------------------------------------------
+runtime! debian.vim
+
+"-------------------------------------------------------------------------
+" Vim5 and later versions support syntax highlighting. Uncommenting the next
+" line enables syntax highlighting by default.
+"-------------------------------------------------------------------------
+if has("syntax")
+	syntax on
+endif
+
+"-------------------------------------------------------------------------
+" generation
+"-------------------------------------------------------------------------
+"set listchars=tab:>-,trail:.
+"set list
+":set backspace=indent,eol,start"
+"set list listchars=tab:\ \ ,trail:-
+set backspace=2
+set number
+set nowritebackup
+set nobackup
+set incsearch
+set hlsearch
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set cindent
+
+set guioptions-=T "隐藏工具栏
+set pumheight=4
+set completeopt-=preview
+set tags=tags;/
+filetype indent on
+
+nmap <F8> :noh<CR>
+
+"-------------------------------------------------------------------------
+" 折叠样式
+"-------------------------------------------------------------------------
+"autocmd!   BufNewFile,BufRead *    setlocal nofoldenable
+set foldenable
+"set foldmarker=#ifdef,#enfif
+"set foldmethod=marker
+set foldmethod=syntax
+set foldlevelstart=99
+"highlight Folded ctermbg=black ctermfg=red guibg=bg guifg=blue
+"highlight FoldColumn ctermbg=black ctermfg=red guibg=bg guifg=white
+highlight Folded guibg=black guifg=grey40 ctermfg=grey ctermbg=darkgrey
+highlight FoldColumn guibg=black guifg=grey20 ctermfg=4 ctermbg=7
+
+""-------------------------------------------------------------------------
+"" 文件浏览
+""-------------------------------------------------------------------------
+"let g:netrw_banner = 0 " 不显示横幅
+"let g:netrw_liststyle = 3 " 设置为树图
+"let g:netrw_altv         = 1    " 与preview项相配合，在右侧打开预览文件
+"let g:netrw_preview      = 0    " 在一个垂直列表中打开预览文件
+"let g:netrw_winsize = 20
+"let g:netrw_browse_split = 4
+"
+"function! ToggleVExplorer()
+"  if exists("t:expl_buf_num")
+"      let expl_win_num = bufwinnr(t:expl_buf_num)
+"      if expl_win_num != -1
+"          let cur_win_nr = winnr()
+"          exec expl_win_num . 'wincmd w'
+"          close
+"          exec cur_win_nr . 'wincmd w'
+"          unlet t:expl_buf_num
+"      else
+"          unlet t:expl_buf_num
+"      endif
+"  else
+"      exec '1wincmd w'
+"      Vexplore
+"      let t:expl_buf_num = bufnr("%")
+"  endif
+"endfunction
+"map <silent> <F2> :call ToggleVExplorer()<CR>
+
+"-------------------------------------------------------------------------
+" 文件编码
+"-------------------------------------------------------------------------
+set fileencodings=UTF-8,cp936
+let loaded_matchparen = 1
+au BufNewFile,BufRead *.c,*.cpp,*.h,*.S,*.s set expandtab
+
+"-------------------------------------------------------------------------
+" 主题
+"-------------------------------------------------------------------------
+colorscheme peachpuff
+
+"-------------------------------------------------------------------------
+" 搜索高亮
+"-------------------------------------------------------------------------
+highlight Search ctermfg=black
+
+"-------------------------------------------------------------------------
+" 第81列非空字符设置高亮
+"-------------------------------------------------------------------------
+highlight ColorColumn ctermfg=cyan guifg=red ctermbg=None guibg=bg
+call matchadd('ColorColumn', '\%81v', 100)
+
+""-------------------------------------------------------------------------
+"" 行尾空字符高亮
+""-------------------------------------------------------------------------
+"" 禁止加载该插件，这里是没有作用的
+"if exists('loaded_trailing_whitespace_plugin') | finish | endif
+"let loaded_trailing_whitespace_plugin = 1
+"
+"if !exists('g:extra_whitespace_ignored_filetypes')
+"	    let g:extra_whitespace_ignored_filetypes = []
+"endif
+"
+"function! ShouldMatchWhitespace()
+"	for ft in g:extra_whitespace_ignored_filetypes
+"		if ft ==# &filetype | return 0 | endif
+"	endfor
+"	return 1
+"endfunction
+"
+"highlight default ExtraWhitespace ctermbg=darkred guibg=darkred
+"
+"autocmd ColorScheme * highlight default ExtraWhitespace ctermbg=darkred guibg=darkred
+"autocmd BufRead,BufNew * if ShouldMatchWhitespace() | match ExtraWhitespace /\\\@<![\u3000[:space:]]\+$/ | else | match ExtraWhitespace /^^/ | endif
+"
+"" The above flashes annoyingly while typing, be calmer in insert mode
+"autocmd InsertLeave * if ShouldMatchWhitespace() | match ExtraWhitespace /\\\@<![\u3000[:space:]]\+$/ | endif
+"autocmd InsertEnter * if ShouldMatchWhitespace() | match ExtraWhitespace /\\\@<![\u3000[:space:]]\+\%#\@<!$/ | endif
+"
+"function! s:FixWhitespace(line1,line2)
+"    let l:save_cursor = getpos(".")
+"    silent! execute ':' . a:line1 . ',' . a:line2 . 's/\\\@<!\s\+$//'
+"    call setpos('.', l:save_cursor)
+"endfunction
+"
+"" Run :FixWhitespace to remove end of line white space
+"command! -range=% FixWhitespace call <SID>FixWhitespace(<line1>,<line2>)
+
+"-------------------------------------------------------------------------
+" 行号颜色
+"-------------------------------------------------------------------------
+highlight linenr ctermfg=darkmagenta guifg=fg
+
+"-------------------------------------------------------------------------
+" 分割线样式
+"-------------------------------------------------------------------------
+highlight VertSplit ctermfg=gray ctermbg=none cterm=none
+" guibg无法设置none
+if has('gui_running')
+	highlight VertSplit guibg=fg guifg=bg
+endif
+
+"-------------------------------------------------------------------------
+" 状态行
+"-------------------------------------------------------------------------
+hi StatusLine ctermfg=magenta guifg=darkMagenta guibg=bg ctermbg=none term=none cterm=none gui=none
+hi StatusLineNC ctermfg=darkgray guifg=gray guibg=bg ctermbg=none term=none cterm=none gui=none
+
+set statusline=
+set statusline+=\ %<%f
+set statusline+=\ \|\ ascii:%b
+set statusline+=\ \|\ hex:0x%02.2B
+set statusline+=\ %=\ %{''.(&ff).''}
+set statusline+=\ \|\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
+set statusline+=\ \|\ %Y
+set statusline+=\ \|\ %=%l/%L\ %c
+set statusline+=\ \|\ %M%R%W\ %P\ 
+set laststatus=2
+
+highlight User1 ctermfg=lightgrey
+highlight User2 ctermfg=lightgrey
+
+"-------------------------------------------------------------------------
+" 字体
+"-------------------------------------------------------------------------
+if has('gui_running')
+	set guifont=FiraCode\ 7
+endif
+
+"-------------------------------------------------------------------------
+" 新文件标题
+"-------------------------------------------------------------------------
+"新建.c,.h,.sh,.java文件，自动插入文件头
+autocmd BufRead,BufNewFile	*.sh set filetype=sh
+autocmd BufRead,BufNewFile	*.c set filetype=c
+autocmd BufRead,BufNewFile	*.h set filetype=cpp
+autocmd BufRead,BufNewFile vimrc set filetype=vim
+autocmd BufRead,BufNewFile *.py set filetype=python
+autocmd BufRead,BufNewFile	*.mk,Makefile,Makefile.build set filetype=make
+autocmd BufNewFile *.h,*.c,*.cpp,*.py,*.sh,*.mk,Makefile,Makefile.build,vimrc exec ":call SetTitle()"
+func SetTitle()
+	"c、h文件共用"
+	if &filetype == 'c' " 空格
+		call setline(1,			 "/*")
+        call append(line("."),	 " * Copyright (c) 2020-2022, Chertsoft Development Team")
+        call append(line(".")+1, " *")
+        call append(line(".")+2, " * License-Identifier: MIT")
+        call append(line(".")+3, " *")
+        call append(line(".")+4, " * Change Logs:")
+        call append(line(".")+5, " * Date         Author		Notes")
+        call append(line(".")+6, " * ".strftime("%F")."   lepustse	the first version")
+        call append(line(".")+7, " */")
+
+	elseif &filetype == 'ASM'
+		call setline(1,			 "/*")
+        call append(line("."),	 " * Copyright (c) 2020-2022, Chertsoft Development Team")
+        call append(line(".")+1, " *")
+        call append(line(".")+2, " * License-Identifier: MIT")
+        call append(line(".")+3, " *")
+        call append(line(".")+4, " * Change Logs:")
+        call append(line(".")+5, " * Date         Author		Notes")
+        call append(line(".")+6, " * ".strftime("%F")."   lepustse	the first version")
+        call append(line(".")+7, " */")
+
+	elseif &filetype == 'cpp'
+		call setline(1,			 "/*")
+        call append(line("."),	 " * Copyright (c) 2020-2022, Chertsoft Development Team")
+        call append(line(".")+1, " *")
+        call append(line(".")+2, " * License-Identifier: MIT")
+        call append(line(".")+3, " *")
+        call append(line(".")+4, " * Change Logs:")
+        call append(line(".")+5, " * Date         Author		Notes")
+        call append(line(".")+6, " * ".strftime("%F")."   lepustse	the first version")
+        call append(line(".")+7, " */")
+
+	elseif &filetype == 'python' " 空格
+        call setline(1,			 "#=========================================================================")
+        call append(line("."),	 "# Copyright (c) 2020-2022, Chertsoft Development Team")
+        call append(line(".")+1, "#")
+        call append(line(".")+2, "# License-Identifier: MIT")
+        call append(line(".")+3, "#")
+        call append(line(".")+4, "# Change Logs:")
+        call append(line(".")+5, "# Date         Author      Notes")
+        call append(line(".")+6, "# ".strftime("%F")."   lepustse   the first version")
+        call append(line(".")+7, "#=========================================================================")
+	elseif &filetype == 'vim' " tab
+        call setline(1,			"\"=========================================================================")
+        call append(line("."),	 "\" Copyright (c) 2020-2022, Chertsoft Development Team")
+        call append(line(".")+1, "\"")
+        call append(line(".")+2, "\" License-Identifier: MIT")
+        call append(line(".")+3, "\"")
+        call append(line(".")+4, "\" Change Logs:")
+        call append(line(".")+5, "\" Date			Author		Notes")
+        call append(line(".")+6, "\" ".strftime("%F")."	lepustse	the first version")
+        call append(line(".")+7, "\"=========================================================================")
+
+	else " tab
+        call setline(1,			 "#=========================================================================")
+        call append(line("."),	 "# Copyright (c) 2020-2022, Chertsoft Development Team")
+        call append(line(".")+1, "#")
+        call append(line(".")+2, "# License-Identifier: MIT")
+        call append(line(".")+3, "#")
+        call append(line(".")+4, "# Change Logs:")
+        call append(line(".")+5, "# Date			Author		Notes")
+        call append(line(".")+6, "# ".strftime("%F")."	lepustse	the first version")
+        call append(line(".")+7, "#=========================================================================")
+    endif
+
+	if &filetype == 'python'
+        call append(line(".")+8,  "")
+        call append(line(".")+9,  "# !/usr/bin/python")
+        call append(line(".")+10, "# -*- coding:utf-8 -*-")
+        call append(line(".")+11, "")
+	endif
+
+	if &filetype == 'sh'
+        call append(line(".")+8,  "")
+        call append(line(".")+9,  "# !/bin/bash")
+        call append(line(".")+10, "")
+	endif
+
+    if &filetype == 'cpp'
+        call append(line(".")+8,  "")
+		call append(line(".")+9,  "#ifndef __".toupper(expand("%:t:r"))."_H") " 这里有bug......
+		call append(line(".")+10,  "#define __".toupper(expand("%:t:r"))."_H")
+        call append(line(".")+11,  "")
+		call append(line(".")+12, "#ifdef __cplusplus")
+		call append(line(".")+13, "extern \"C\" {")
+		call append(line(".")+14, "#endif")
+		call append(line(".")+15, "")
+		call append(line(".")+16, "#ifdef __cplusplus")
+		call append(line(".")+17, "}")
+		call append(line(".")+18, "#endif")
+		call append(line(".")+19, "#endif /*__".toupper(expand("%:t:r"))."_H*/")
+    endif
+
+    if &filetype == 'c'
+		call append(line(".")+8, "")
+		call append(line(".")+9,"#include \"".expand("%:t:r").".h\"")
+        call append(line(".")+10, "")
+    endif
+    "新建文件后，自动定位到文件末尾
+    autocmd BufNewFile * normal G
+endfunc
+
+"-------------------------------------------------------------------------
+" 编译运行
+"-------------------------------------------------------------------------
+map <F5> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+    exec "w"
+    if &filetype == 'c'
+        exec "!gcc % -o %<"
+        exec "! ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %<"
+        exec "! ./%<"
+    elseif &filetype == 'java'
+        exec "!javac %"
+        exec "!java %<"
+    elseif &filetype == 'sh'
+        :!./%
+    endif
+endfunc
+
+"-------------------------------------------------------------------------
+" vim插件管理
+"-------------------------------------------------------------------------
+call plug#begin('~/.vim/plugged')
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/mathjax-support-for-mkdp'
+Plug 'iamcco/markdown-preview.vim'
+Plug 'scrooloose/vim-slumlord'
+Plug 'aklt/plantuml-syntax'
+Plug 'weirongxu/plantuml-previewer.vim'
+Plug 'preservim/nerdtree'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'samgriesemer/vim-roam'
+call plug#end()
+
+"-------------------------------------------------------------------------
+" vim-markdown配置
+"-------------------------------------------------------------------------
+"" vim-markdown关闭折叠
+"let g:vim_markdown_folding_disabled = 1
+"let g:instant_markdown_autostart = 0
+"
+""zr: reduces fold level throughout the buffer
+""zR: opens all folds
+""zm: increases fold level throughout the buffer
+""zM: folds everything all the way
+""za: open a fold your cursor is on
+""zA: open a fold your cursor is on recursively
+""zc: close a fold your cursor is on
+""zC: close a fold your cursor is on recursively
+"
+"let g:vim_markdown_toc_autofit = 1
+nmap <silent> <F9> <Plug>MarkdownPreview
+imap <silent> <F9> <Plug>MarkdownPreview
+nmap <silent> <F10> <Plug>StopMarkdownPreview
+imap <silent> <F10> <Plug>StopMarkdownPreview
+
+"-------------------------------------------------------------------------
+" nerdtree配置
+"-------------------------------------------------------------------------
+"autocmd vimenter * NERDTree  "自动开启Nerdtree
+"let g:NERDTreeWinSize = 25 "设定 NERDTree 视窗大小
+""开启/关闭nerdtree快捷键
+"let NERDTreeShowBookmarks=1  " 开启Nerdtree时自动显示Bookmarks
+""打开vim时如果没有文件自动打开NERDTree
+autocmd vimenter * if !argc()|NERDTree|endif
+"当NERDTree为剩下的唯一窗口时自动关闭
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&
+"b:NERDTree.isTabTree()) | q | endif
+""设置树的显示图标
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+let NERDTreeIgnore = ['\.pyc$']  " 过滤所有.pyc文件不显示
+"let g:NERDTreeShowLineNumbers=1  " 是否显示行号
+"let g:NERDTreeHidden=0     "不显示隐藏文件
+""Making it prettier
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+map <F2> :NERDTreeMirror<CR>
+map <F2> :NERDTreeToggle<CR>

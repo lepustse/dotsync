@@ -1,0 +1,90 @@
+#=========================================================================
+# File		 :  .bash_profile.sh
+#
+# Change Logs:
+# Date			Author		Notes
+# 2019-08-22	tosinyan	the first version
+#=========================================================================
+
+export CLICOLOR=1
+export LSCOLORS=1212121212121212121212
+export LSCOLORS=exgxhxhxcxhxhxcxcxbxbx
+
+# some more ls aliases
+alias ll='ls -alF'
+alias lh='ls -alFh'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias gs='git st'
+alias gi='git ci'
+alias go='git co'
+alias ga='git add'
+alias gc='git clone'
+alias gd='git diff'
+alias gps='git push'
+alias gpl='git pull'
+
+# rtt
+#export RTT_EXEC_PATH=[/usr/bin/arm-none-eabi-gcc]
+
+# dotfile
+export PATH=~/.dotfiles:$PATH
+
+# git
+function git-branch-name {
+	git symbolic-ref --short -q HEAD 2>/dev/null
+}
+
+function git-branch-prompt {
+	local branch=`git-branch-name`
+  	if [ $branch ]; then
+  	    printf " %s " $branch;
+  	fi
+}
+
+# 这部分是ok的
+##PS1='\[\033[38;5;24m\]\w\[\033[00m\] '
+#PS1='\[\033[0;34m\]\w\[\033[00m\]'
+#PS1+="\e[38;5;214m\$(git-branch-prompt)\e[0m"
+#PS1+='\n'
+#PS1+='\[\033[0;34m\]❯\[\033[00m\] '
+# 颜色格式
+#\[\033[0;2m\]...\[\033[00m\]
+# bak
+#export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h:\[\033[01;34m\]\w \$ \[\033[00m\]"
+export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[0;2m\]\u@\h:\[\033[00m\]\[\033[0;34m\]\w\[\033[00m\]\[\033[38;5;36m\]\$(git-branch-prompt)\[\033[00m\]\[\033[0;34m\]\$ \[\033[00m\]"
+
+##PS1='\[\033[2m\u@\h:\e[0m' # 用户@主机名
+#PS1='\[\033[0;2m\]\u@\h\[\033[00m\]'
+#PS1+=' '
+#PS1+='\[\033[0;34m\]\w\e\[\033[00m\]'
+#PS1+=' '
+#PS1+="\e[38;5;36m\$(git-branch-prompt)\e[0m" # 分支名
+#PS1+=' '
+#PS1+='\[\033[0;34m\]❯\[\033[00m\]' # >
+#PS1+=' '
+
+# git补全
+source ~/.git-completion.bash
+
+# Setting PATH for Python 3.7
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
+export PATH
+
+# Setting PATH for Python 3.8
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
+export PATH
+
+# armcc
+PATH="/opt/gcc-arm-none-eabi-4_9-2015q3/bin:${PATH}"
+export PATH
+
+export all_proxy=socks5://127.0.0.1:1086
+
+# key bind
+stty -ixon
+bind -r "\C-s"
+bind -r "\C-l"
