@@ -113,14 +113,12 @@ bindkey -r ''
 bindkey -r ''
 bindkey "^F" forward-char	# ctrl-f
 bindkey "^B" backward-char	# ctrl-b
-bindkey '\eh'  backward-char         #ALT+h:向左移动一个单词
-bindkey '\el'  forward-char          #ALT+l：向右移动一个单词
-bindkey '\ek'  up-line-or-history    #ALT+k：向上移动一个单词
-bindkey '\ej'  down-line-or-history  #ALT+j：向下移动一个单词
-umask 02
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-#[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# tab
+bindkey '\eh'  backward-char         # ALT+h 向左移动一个单词
+bindkey '\el'  forward-char          # ALT+l 向右移动一个单词
+bindkey '\ek'  up-line-or-history    # ALT+k 向上移动一个单词
+bindkey '\ej'  down-line-or-history  # ALT+j 向下移动一个单词
+umask 022 # 文件权限的掩码值
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
