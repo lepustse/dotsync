@@ -329,6 +329,8 @@ endfunc
 "-------------------------------------------------------------------------
 " vim插件管理
 "-------------------------------------------------------------------------
+"在 调用 call plug#begin('~/.config/nvim/plugged') 之前 设置plug_url_format即可
+"let g:plug_url_format='https://git::@hub.fastgit.org/%s.git'
 call plug#begin('~/.vim/plugged')
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'godlygeek/tabular'
