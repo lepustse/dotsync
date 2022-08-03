@@ -14,7 +14,8 @@ if [ $? = 0 ];then
 fi
 
 # 创建一个新session名称为 $session，新窗口名为bash，并detach
-tmux new-session -d -s $session -n debug
+#tmux new-session -d -s $session -n debug
+tmux new-session -d -s $session
 tmux split-window -h -p 65 # 竖直分割
 tmux split-window -v -p 30 # 水平分割
 tmux select-pane -t 3
@@ -29,7 +30,7 @@ tmux split-window -h -p 180
 #tmux split-window -v -p 40
 
 # 创建一个新的窗口
-tmux new-window -t $select:2
+#tmux new-window -t $select:2
 
 # 这个暂时先不要了
 #tmux new-window -t $session:3 -n
