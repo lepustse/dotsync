@@ -121,8 +121,8 @@ bindkey '\ej'  down-line-or-history  # ALT+j 向下移动一个单词
 umask 022 # 文件权限的掩码值
 
 alias get_idf='. $HOME/project/esp/esp-idf/export.sh'
-export PATH=$PATH:$HOME
-#export RTT_EXEC_PATH=$PATH:/usr/bin
+export PATH=$PATH:$HOME:$HOME/.local/bin
+export RTT_EXEC_PATH=/usr/bin
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

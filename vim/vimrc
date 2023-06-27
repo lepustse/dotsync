@@ -42,10 +42,16 @@ set guioptions-=T "隐藏工具栏
 set pumheight=4
 set completeopt-=preview
 set tags=tags;/
+" check file type
 filetype indent on
 
+"nmap <CR> :noh<CR>
 nmap <F8> :noh<CR>
 
+"Diff colors
+hi DiffAdd    cterm=bold ctermbg=green guibg=#003300
+hi DiffChange cterm=bold ctermbg=yellow guibg=#332200
+hi DiffDelete cterm=bold ctermbg=red    guibg=#330000
 "-------------------------------------------------------------------------
 " 折叠样式
 "-------------------------------------------------------------------------
@@ -205,7 +211,7 @@ func SetTitle()
 	"c、h文件共用"
 	if &filetype == 'c' " 空格
 		call setline(1,			 "/*")
-        call append(line("."),	 " * Copyright (c) 2020-2022, Chertsoft Development Team")
+        call append(line("."),	 " * Copyright (c) 2020-2023, Chertsoft Development Team")
         call append(line(".")+1, " *")
         call append(line(".")+2, " * License-Identifier: MIT")
         call append(line(".")+3, " *")
@@ -216,7 +222,7 @@ func SetTitle()
 
 	elseif &filetype == 'ASM'
 		call setline(1,			 "/*")
-        call append(line("."),	 " * Copyright (c) 2020-2022, Chertsoft Development Team")
+        call append(line("."),	 " * Copyright (c) 2020-2023, Chertsoft Development Team")
         call append(line(".")+1, " *")
         call append(line(".")+2, " * License-Identifier: MIT")
         call append(line(".")+3, " *")
@@ -227,7 +233,7 @@ func SetTitle()
 
 	elseif &filetype == 'cpp'
 		call setline(1,			 "/*")
-        call append(line("."),	 " * Copyright (c) 2020-2022, Chertsoft Development Team")
+        call append(line("."),	 " * Copyright (c) 2020-2023, Chertsoft Development Team")
         call append(line(".")+1, " *")
         call append(line(".")+2, " * License-Identifier: MIT")
         call append(line(".")+3, " *")
@@ -238,7 +244,7 @@ func SetTitle()
 
 	elseif &filetype == 'python' " 空格
         call setline(1,			 "#=========================================================================")
-        call append(line("."),	 "# Copyright (c) 2020-2022, Chertsoft Development Team")
+        call append(line("."),	 "# Copyright (c) 2020-2023, Chertsoft Development Team")
         call append(line(".")+1, "#")
         call append(line(".")+2, "# License-Identifier: MIT")
         call append(line(".")+3, "#")
@@ -248,7 +254,7 @@ func SetTitle()
         call append(line(".")+7, "#=========================================================================")
 	elseif &filetype == 'vim' " tab
         call setline(1,			"\"=========================================================================")
-        call append(line("."),	 "\" Copyright (c) 2020-2022, Chertsoft Development Team")
+        call append(line("."),	 "\" Copyright (c) 2020-2023, Chertsoft Development Team")
         call append(line(".")+1, "\"")
         call append(line(".")+2, "\" License-Identifier: MIT")
         call append(line(".")+3, "\"")
@@ -259,7 +265,7 @@ func SetTitle()
 
 	else " tab
         call setline(1,			 "#=========================================================================")
-        call append(line("."),	 "# Copyright (c) 2020-2022, Chertsoft Development Team")
+        call append(line("."),	 "# Copyright (c) 2020-2023, Chertsoft Development Team")
         call append(line(".")+1, "#")
         call append(line(".")+2, "# License-Identifier: MIT")
         call append(line(".")+3, "#")
@@ -388,3 +394,9 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 map <F2> :NERDTreeMirror<CR>
 map <F2> :NERDTreeToggle<CR>
+
+"-------------------------------------------------------------------------
+" taglist配置
+"-------------------------------------------------------------------------
+filetype plugin on
+map <F3> :TlistToggle<CR>
