@@ -61,6 +61,7 @@ tmux/.tmux.conf:.tmux.conf
 tmux/tm_startup_bs.sh
 #vim/dotvim:.vim
 vim/vimrc
+vim/lt_peachpuff.vim:.vim/colors/lt_peachpuff.vim
 #vim/gvimrc
 #wget/wgetrc
 #zsh/fasdrc

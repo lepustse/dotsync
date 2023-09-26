@@ -2,8 +2,6 @@
 " File		 :  .vimrc
 " Change Logs:
 " Date			Author		Notes
-" 2019-04-10	lepus.tse	the first version
-"=========================================================================
 
 "-------------------------------------------------------------------------
 " This line should not be removed as it ensures that various options are
@@ -106,7 +104,8 @@ au BufNewFile,BufRead *.c,*.cpp,*.h,*.S,*.s set expandtab
 "-------------------------------------------------------------------------
 " 主题
 "-------------------------------------------------------------------------
-colorscheme peachpuff
+"colorscheme peachpuff
+colorscheme lt_peachpuff
 
 "-------------------------------------------------------------------------
 " 搜索高亮
