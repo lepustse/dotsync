@@ -74,11 +74,8 @@ zsh/zshrc
 
 ## hostname                     type=masterhost, ANY or NONE    files=dotfile:tolink,another:tolink
 [hosts]
-ubt1804-NUC10i7FNH				git=ubt1804-ms7b23				files=tmux/tm_startup_bs.sh
-TLs-Macmini						git=NONE
 LTs-MacBook-Pro				git=NONE
-ubt2204-NUC10i7FNH				git=NONE
-ubt2004-tpx1c6					git=NONE						files=tmux/tm_startup_ss.sh
+ubt2204-X1C11					git=NONE						files=tmux/tm_startup_ss.sh
 vubt2204					git=NONE						files=tmux/tm_startup_ss.sh
 #host1.example.com               git=ANY                        files=custom/dotfile    #git repo, pull from anywhere and link a custom dotfile
 #host2.example.com               git=ANY                                                #git repo, pull from anywhere
