@@ -121,13 +121,18 @@ bindkey '\ej'  down-line-or-history  # ALT+j 向下移动一个单词
 umask 022 # 文件权限的掩码值
 
 alias get_idf='. $HOME/project/esp/esp-idf/export.sh'
-export PATH="$HOME:$PATH"
-export PATH="$HOME/.local/bin:/usr/bin:$PATH"
-#export PATH="/usr/bin:$PATH"
-#export PATH="$HOME/toolchains/gcc-arm-none-eabi-10.3-2021.10/bin:$PATH"
-#export PATH="$HOME/toolchains/gcc-arm-10.3-2021.07-x86_64-aarch64-none-elf/bin:$PATH"
-#export PATH="$HOME/toolchains/aarch64-linux-musleabi_for_x86_64-pc-linux-gnu/bin:$PATH"
-export RTT_EXEC_PATH=$HOME/toolchains/gcc-arm-none-eabi-10.3-2021.10/bin
+#export PATH="$HOME:$PATH"
+#export PATH="$HOME/.local/bin:/usr/bin:$PATH"
+export PATH="/opt/gcc-arm-none-eabi-10.3-2021.10/bin:$PATH"
+#export PATH="/opt/gcc-arm-11.2-2022.02-x86_64-aarch64-none-elf/bin:$PATH"
+export PATH="/opt/gcc-arm-10.3-2021.07-x86_64-aarch64-none-elf/bin:$PATH"
+export PATH="$HOME/.config/clash:$PATH"
+#export RTT_EXEC_PATH="/opt/gcc-arm-none-eabi-10.3-2021.10/bin:$PATH"
+
+export https_proxy=http://127.0.0.1:7890
+export http_proxy=http://127.0.0.1:7890
+export all_proxy=socks5://127.0.0.1:7890
+
 #export RTT_EXEC_AARCH64=$HOME/project/xil_qemu/build/qemu-system-aarch64
 #export RTT_CC_PREFIX=aarch64-linux-musleabi-
 #export RTT_EXEC_PATH=/usr/bin
