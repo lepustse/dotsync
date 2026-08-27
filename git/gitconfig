@@ -4,7 +4,7 @@
 [core]
     editor = vim
 	quotepath = false
-	excludesfile = /home/lepus/.gitignore
+	excludesfile = ~/.gitignore
 [alias]
 	df = diff
 	br = branch
@@ -12,7 +12,7 @@
 	ci = commit
 	co = checkout
 	pl = pull
-	pt = pust
+	pt = push
 
 	# %an: 作者名字，是指实际作出修改的人
 	# %cn: 提交者名字，是指最后将此工作成果提交到仓库的人
@@ -32,27 +32,7 @@
 
 	# 按照补丁格式显示每个更新之间的差异
 	plg = log --pretty=fuller -p -1
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
 #[https]
 #	proxy = socks5://127.0.0.1:7890
 #[http]
 #	proxy = socks5://127.0.0.1:7890
-[diff]
-  tool = bcomp
-[difftool]
-  prompt = false
-[difftool "bcomp"]
-  trustExitCode = true
-  cmd = "/usr/local/bin/bcomp" \"$LOCAL\" \"$REMOTE\"
-[merge]
-  tool = bcomp
-[mergetool]
-  prompt = false
-[mergetool "bcomp"]
-  trustExitCode = true
-  cmd = "/usr/local/bin/bcomp" \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
-
