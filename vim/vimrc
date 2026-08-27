@@ -7,7 +7,7 @@
 " This line should not be removed as it ensures that various options are
 " properly set to work with the Vim-related packages available in Debian.
 "-------------------------------------------------------------------------
-runtime! debian.vim
+"runtime! debian.vim
 
 "-------------------------------------------------------------------------
 " Vim5 and later versions support syntax highlighting. Uncommenting the next
@@ -16,7 +16,6 @@ runtime! debian.vim
 if has("syntax")
 	syntax on
 endif
-
 "-------------------------------------------------------------------------
 " generation
 "-------------------------------------------------------------------------
@@ -105,17 +104,40 @@ au BufNewFile,BufRead *.c,*.cpp,*.h,*.S,*.s set expandtab
 " 主题
 "-------------------------------------------------------------------------
 "colorscheme peachpuff
-colorscheme lt_peachpuff
+function! s:ApplyLtPeachpuffOverrides()
+	highlight Search ctermfg=black
+	highlight ColorColumn ctermfg=cyan guifg=red ctermbg=None guibg=bg
+	highlight LineNr ctermfg=darkmagenta guifg=fg
+	highlight VertSplit ctermfg=gray ctermbg=none cterm=none
+	if has('gui_running')
+		highlight VertSplit guibg=fg guifg=bg
+	endif
+	highlight StatusLine ctermfg=magenta guifg=darkMagenta guibg=bg ctermbg=none term=none cterm=none gui=none
+	highlight StatusLineNC ctermfg=darkgray guifg=gray guibg=bg ctermbg=none term=none cterm=none gui=none
+	highlight User1 ctermfg=lightgrey
+	highlight User2 ctermfg=lightgrey
+endfunction
+
+function! s:LoadLtPeachpuff()
+	colorscheme lt_peachpuff
+	let g:colors_name = 'lt_peachpuff'
+	call s:ApplyLtPeachpuffOverrides()
+endfunction
+call s:LoadLtPeachpuff()
+
+" Vim 9.1 detects the terminal background after startup and resets colors.
+augroup lt_peachpuff_colorresp
+	autocmd!
+	autocmd TermResponseAll background call <SID>LoadLtPeachpuff()
+augroup END
 
 "-------------------------------------------------------------------------
 " 搜索高亮
 "-------------------------------------------------------------------------
-highlight Search ctermfg=black
 
 "-------------------------------------------------------------------------
 " 第81列非空字符设置高亮
 "-------------------------------------------------------------------------
-highlight ColorColumn ctermfg=cyan guifg=red ctermbg=None guibg=bg
 call matchadd('ColorColumn', '\%81v', 100)
 
 ""-------------------------------------------------------------------------
@@ -157,22 +179,15 @@ call matchadd('ColorColumn', '\%81v', 100)
 "-------------------------------------------------------------------------
 " 行号颜色
 "-------------------------------------------------------------------------
-highlight linenr ctermfg=darkmagenta guifg=fg
 
 "-------------------------------------------------------------------------
 " 分割线样式
 "-------------------------------------------------------------------------
-highlight VertSplit ctermfg=gray ctermbg=none cterm=none
 " guibg无法设置none
-if has('gui_running')
-	highlight VertSplit guibg=fg guifg=bg
-endif
 
 "-------------------------------------------------------------------------
 " 状态行
 "-------------------------------------------------------------------------
-hi StatusLine ctermfg=magenta guifg=darkMagenta guibg=bg ctermbg=none term=none cterm=none gui=none
-hi StatusLineNC ctermfg=darkgray guifg=gray guibg=bg ctermbg=none term=none cterm=none gui=none
 
 set statusline=
 set statusline+=\ %<%f
@@ -185,8 +200,6 @@ set statusline+=\ \|\ %=%l/%L\ %c
 set statusline+=\ \|\ %M%R%W\ %P\ 
 set laststatus=2
 
-highlight User1 ctermfg=lightgrey
-highlight User2 ctermfg=lightgrey
 
 "-------------------------------------------------------------------------
 " 字体

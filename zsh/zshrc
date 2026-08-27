@@ -108,7 +108,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 unset LESS
-stty -ixon
+[[ -t 0 ]] && stty -ixon
 bindkey -r ''
 bindkey -r ''
 bindkey "^F" forward-char	# ctrl-f
@@ -121,13 +121,17 @@ bindkey '\ej'  down-line-or-history  # ALT+j 向下移动一个单词
 umask 022 # 文件权限的掩码值
 
 alias get_idf='. $HOME/project/esp/esp-idf/export.sh'
-export PATH="$HOME:$PATH"
-export PATH="$HOME/.local/bin:/usr/bin:$PATH"
+typeset -U path PATH
+path=("$HOME/.local/bin" $path)
 #export PATH="/usr/bin:$PATH"
 #export PATH="$HOME/toolchains/gcc-arm-none-eabi-10.3-2021.10/bin:$PATH"
 #export PATH="$HOME/toolchains/gcc-arm-10.3-2021.07-x86_64-aarch64-none-elf/bin:$PATH"
 #export PATH="$HOME/toolchains/aarch64-linux-musleabi_for_x86_64-pc-linux-gnu/bin:$PATH"
-export RTT_EXEC_PATH=$HOME/toolchains/gcc-arm-none-eabi-10.3-2021.10/bin
+if [[ -d "$HOME/toolchains/gcc-arm-none-eabi-10.3-2021.10/bin" ]]; then
+	export RTT_EXEC_PATH="$HOME/toolchains/gcc-arm-none-eabi-10.3-2021.10/bin"
+else
+	unset RTT_EXEC_PATH
+fi
 #export RTT_EXEC_AARCH64=$HOME/project/xil_qemu/build/qemu-system-aarch64
 #export RTT_CC_PREFIX=aarch64-linux-musleabi-
 #export RTT_EXEC_PATH=/usr/bin
